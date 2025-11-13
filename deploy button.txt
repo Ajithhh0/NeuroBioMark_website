@@ -1,0 +1,6 @@
+st.markdown("""
+    <style>
+        header [data-testid="stHeader"] {visibility: hidden;}   /* Hide main header */
+        header .stAppDeployButton {visibility: visible !important;} /* Keep Deploy */
+    </style>
+""", unsafe_allow_html=True)
