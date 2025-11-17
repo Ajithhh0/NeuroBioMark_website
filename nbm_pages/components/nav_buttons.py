@@ -1,54 +1,57 @@
 import streamlit as st
-from PIL import Image
 import base64
+
 
 def nav_buttons():
     current = st.session_state.get("active_page", "Home")
 
-    # Load logo and convert to base64 (required for inside HTML)
     with open("Resources/NBMLogoNobg_cropped.png", "rb") as f:
         logo_data = base64.b64encode(f.read()).decode()
 
-    st.markdown(
-        f"""
+    def cls(page):
+        return "nav-btn active" if current == page else "nav-btn"
+
+    html = f"""
 <style>
 .nav-wrapper {{
     position: sticky;
     top: 0;
     z-index: 9999;
-    padding: 10px 0;
-    background: black;  /* navbar background */
+    height: 70px;
+    width: 100%;
+    background: black;
 }}
-
 .nav-container {{
-    display: flex;
-    gap: 35px;
-    align-items: center;
+    position: relative;
+    height: 100%;
+    width: 100%;
 }}
-
+.nav-left {{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}}
+.nav-center {{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 40px;
+}}
 .nav-logo {{
     height: 48px;
-    margin-right: 20px;
 }}
-
 .nav-btn {{
     background: transparent;
     color: white;
     font-size: 18px;
-    padding: 6px 6px;
     cursor: pointer;
+    text-decoration: none !important;
     position: relative;
-    text-decoration: none !important;
+    padding: 6px 6px;
 }}
-
-.nav-btn:link,
-.nav-btn:visited,
-.nav-btn:hover,
-.nav-btn:active {{
-    text-decoration: none !important;
-}}
-
-/* Hover underline animation */
 .nav-btn::after {{
     content: "";
     position: absolute;
@@ -57,34 +60,37 @@ def nav_buttons():
     width: 0%;
     height: 2px;
     background: white;
-    transition: width 0.25s ease-out;
+    transition: width 0.25s ease;
 }}
-
 .nav-btn:hover::after {{
     width: 100%;
 }}
-
-/* Active page */
 .active {{
     color: #00f3ff !important;
     font-weight: 700;
 }}
-
 .active::after {{
     width: 0 !important;
-    height: 0 !important;
 }}
 </style>
 
 <div class="nav-wrapper">
-    <div class="nav-container">
-        <img class="nav-logo" src="data:image/png;base64,{logo_data}">
-        <a class="nav-btn {'active' if current=='Home' else ''}" href="/?page=Home" target="_self">Home</a>
-        <a class="nav-btn {'active' if current=='Page2' else ''}" href="/?page=Page2" target="_self">Background</a>
-        <a class="nav-btn {'active' if current=='Page3' else ''}" href="/?page=Page3" target="_self">Research</a>
-        <a class="nav-btn {'active' if current=='Page4' else ''}" href="/?page=Page4" target="_self">Team</a>
-    </div>
+<div class="nav-container">
+<div class="nav-left">
+<img class="nav-logo" src="data:image/png;base64,{logo_data}">
 </div>
-""",
-        unsafe_allow_html=True,
-    )
+
+<div class="nav-center">
+<a class="{cls("Home")}" href="?page=Home" target="_self">Home</a>
+<a class="{cls("Page2")}" href="?page=Page2" target="_self">Background</a>
+<a class="{cls("Page3")}" href="?page=Page3" target="_self">Research</a>
+<a class="{cls("Page4")}" href="?page=Page4" target="_self">Team</a>
+
+
+</div>
+
+</div>
+</div>
+"""
+
+    st.markdown(html, unsafe_allow_html=True)
