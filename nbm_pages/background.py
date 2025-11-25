@@ -2,7 +2,7 @@ import streamlit as st
 
 def render(encoded):
 
-    # --- TRUE BLACK BACKGROUND ---
+  
     st.markdown("""
     <style>
     html, body, .stApp {
@@ -11,7 +11,7 @@ def render(encoded):
     </style>
     """, unsafe_allow_html=True)
 
-    # --- BACKGROUND IMAGE (same as home) ---
+    
     st.markdown(
     f"""
     <style>
@@ -27,7 +27,7 @@ def render(encoded):
     )
 
 
-    # --- CONTENT BOX WITH SAME FADE-IN CLASS ---
+    
     st.markdown(
         """
 <div class="bg-box fade-in">
@@ -195,7 +195,6 @@ It supports safer, earlier, and more informed assessment of ALS and its cognitiv
 
 <style>
 
-    /* SAME FADE-IN ANIMATION AS home.py */
     @keyframes fadeInAnim {
         0% { opacity: 0; transform: translateY(20px); }
         100% { opacity: 1; transform: translateY(0); }
