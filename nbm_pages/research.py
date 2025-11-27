@@ -2,7 +2,6 @@ import streamlit as st
 
 def render(encoded):
 
-   
     st.markdown("""
     <style>
     html, body, .stApp {
@@ -11,7 +10,6 @@ def render(encoded):
     </style>
     """, unsafe_allow_html=True)
 
-    
     st.markdown(
     f"""
     <style>
@@ -26,8 +24,6 @@ def render(encoded):
     unsafe_allow_html=True
     )
 
-
-    
     st.markdown(
         """
 <div class="bg-box fade-in">
@@ -35,76 +31,81 @@ def render(encoded):
 <h2>Research</h2>
 
 <div class="section-title">Dataset Overview</div>
-The dataset consists of TDP-43–stained post-mortem histopathology images from frontal cortex regions associated with motor and cognitive function.
-Specifically: 
- <ul> 
-  <li> Brodmann Area 44 (BA44) </li>
-  <li> Brodmann Area 46 (BA46) </li>
- </ul>
+<p>
+The dataset consists of TDP-43–stained post-mortem histopathology images 
+from frontal cortex regions associated with motor and cognitive function.
+</p>
 
-These regions are chosen because they are linked to both ALS motor pathology and FTD-related cognitive decline.
-
-<b> Sample Size:</b> 190 original brain tissue images.
-
-<b> Output Classes:</b> 
 <ul> 
- <li> <b> Control </b> – No ALS </li>
- <li> <b> Discordant </b> – ALS without cognitive impairment </li>
- <li> <b> Concordant </b> – ALS with cognitive impairment </li>
+  <li>Brodmann Area 44 (BA44)</li>
+  <li>Brodmann Area 46 (BA46)</li>
 </ul>
-These labels support both flat 3-class classification and the proposed hierarchical approach (ALS detection → cognitive stratification).
+
+<p>These regions are chosen because they are linked to both ALS motor pathology and FTD-related cognitive decline.</p>
+
+<b>Sample Size:</b> 190 original brain tissue images.<br>
+<b>Output Classes:</b>
+<ul> 
+ <li><b>Control</b> – No ALS</li>
+ <li><b>Discordant</b> – ALS without cognitive impairment</li>
+ <li><b>Concordant</b> – ALS with cognitive impairment</li>
+</ul>
 
 <div class="section-title">Data Augmentation</div>
-To expand the dataset and reduce overfitting, a large augmentation pipeline is applied:
+
 <ul> 
- <li> 15 augmentation techniques </li>
- <li> Applied across 5 cross-validation folds, creating
-      190 × 10 = 1,900 images per fold </li>
+ <li>15 augmentation techniques</li>
+ <li>Applied across 5 cross-validation folds = 190 × 10 = 1,900 images/fold</li>
 </ul>
-Best techniques identified: 
+
+<p>Best techniques include:</p>
 <ul> 
- <li> Horizontal flip </li>
- <li> Brightness/contrast adjustments </li>
- <li> Shift-scale-rotate </li>
- <li> Elastic deformation </li>
- <li> Colour jitter </li>
+ <li>Horizontal flip</li>
+ <li>Brightness/contrast adjustments</li>
+ <li>Shift-scale-rotate</li>
+ <li>Elastic deformation</li>
+ <li>Colour jitter</li>
 </ul>
 
 <div class="section-title">Data Preprocessing</div>
-Standard preprocessing steps include:
 <ul>
-<li> ImageNet Normalization </li>
-<li> Resizing and formatting for model input </li>
-<li> Removal of patient-level data leakage </li>
+<li>ImageNet Normalization</li>
+<li>Resizing for model input</li>
+<li>Removal of patient-level data leakage</li>
 </ul>
 
 <div class="section-title">Cross-Validation Strategy</div>
-To ensure robust and unbiased performance estimation:
 <ul>
- <li> 5-fold cross-validation  </li>
- <li> 5 Group-CV (patient-level grouping) </li>
- <li> Leave-One-Group-Out (LOGO) validation </li>
+ <li>5-fold cross-validation</li>
+ <li>Group-CV (patient-level)</li>
+ <li>Leave-One-Group-Out (LOGO)</li>
 </ul>
 
-These strategies guarantee that images from the same patient never appear in both training and testing sets.
-
 <div class="section-title">Biological Annotation</div>
-To verify bilogical relevance: 
+
 <ul>
- <li> QuPath software used to annotate TDP-43–positive regions </li>
- <li> These ROI masks are used for: </li>
-   <ul> 
-    <li> super-pixel analysis </li>
-    <li> Focus Relevance Score computation </li>
-   </ul>
+ <li>QuPath software used to annotate TDP-43–positive regions</li>
+ <li>These ROI masks are used for:
+    <ul>
+        <li>Super-pixel analysis</li>
+        <li>Focus Relevance Score computation</li>
+    </ul>
+ </li>
 </ul>
 
 <div class="section-title">Performance Metrics</div>
+
 <div class="section-title">Visualisation</div>
+
 <div class="section-title">Focus Relevance Score</div>
-The Focus Relevance Score (FRS) quantifies how well the model's attention aligns with biologically relevant regions annotated in QuPath. It is calculated as the ratio of the area of overlap between the model's activation map and the QuPath-defined ROIs to the total area of the activation map. A higher FRS indicates that the model is focusing on clinically meaningful features, enhancing trustworthiness and interpretability.
+<p>
+The Focus Relevance Score (FRS) quantifies how well the model’s attention 
+aligns with biologically relevant regions annotated in QuPath.
+</p>
 
 <div class="section-title">Results</div>
+
+</div>
 
 <style>
 
